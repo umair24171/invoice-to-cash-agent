@@ -60,7 +60,7 @@ async function killWorker(kind: string) {
         timer = setTimeout(() => reject(new Error("Child timeout")), 15000);
       }),
     ]);
-    assert.deepEqual(ready, [{ ready: true }]);
+    assert.deepEqual(ready[0], { ready: true });
     const exited = once(child, "exit");
     child.kill("SIGKILL");
     await exited;

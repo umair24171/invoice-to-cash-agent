@@ -18,6 +18,8 @@ jobs:
       DATABASE_URL: postgres://portfolio:synthetic-local-only@localhost:5432/portfolio
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
@@ -26,6 +28,8 @@ jobs:
       - run: npm run format:check
       - run: npm run build
       - run: npm test
+      - name: Embedded PostgreSQL complement
+        run: DATABASE_URL= TEST_PGLITE=1 npm test
       - run: npm run scan
       - run: npm run demo
       - name: Verify Docker demo from clean working tree

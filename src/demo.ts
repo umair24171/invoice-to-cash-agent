@@ -36,11 +36,18 @@ try {
   console.log("Retry:", await a.dispatch(job, false));
   console.log(
     "Mailbox records:",
-    (await db.query("SELECT id,body FROM mailbox ORDER BY id")).length,
+    (
+      await db.query("SELECT id,body FROM mailbox WHERE id=$1 ORDER BY id", [
+        job,
+      ])
+    ).length,
   );
   console.log(
     "Persisted steps:",
-    await db.query("SELECT job,name FROM steps ORDER BY job,name"),
+    await db.query(
+      "SELECT job,name FROM steps WHERE job=$1 ORDER BY job,name",
+      [job],
+    ),
   );
 } finally {
   await db.close();
