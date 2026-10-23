@@ -1,0 +1,88 @@
+Cloning into '/workspace/scratch/6cff42f61b37/verification-clones/invoice-to-cash-agent'...
+done.
+c129f41783c11039df7bc4f8043e73ae154a58fb
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+added 25 packages in 615ms
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> buildzn-invoice-to-cash-agent@0.1.0 format:check
+> prettier --check src tests scripts *.json *.yml .github/workflows/*.yml *.md docs/*.md
+
+Checking formatting...
+All matched files use Prettier code style!
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> buildzn-invoice-to-cash-agent@0.1.0 build
+> tsc --noEmit
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> buildzn-invoice-to-cash-agent@0.1.0 test
+> node --import tsx --test --test-concurrency=1 tests/*.test.ts
+
+✔ 01 partial payment leaves exact balance and reminder (1050.420656ms)
+✔ 02 overpayment is conserved as unapplied review (28.034815ms)
+✔ 03 one line covers several invoices in explicit reference order (26.210083ms)
+✔ 04 several payments settle one invoice (31.009475ms)
+✔ 05 duplicate statement ID allocates once (28.100614ms)
+✔ 05 conflicting bank ID rejected (23.788968ms)
+✔ 05 same content under different source ID quarantined (25.991172ms)
+✔ 06 duplicate invoice imports once and conflicting amount rejected (18.048636ms)
+✔ 07 references [] allocate nothing (18.678657ms)
+✔ 07 references ["WRONG"] allocate nothing (21.354204ms)
+✔ 07 references ["INV-1","WRONG"] allocate nothing (15.840494ms)
+✔ 07 reference owned by another customer allocates nothing (16.339647ms)
+✔ 07 SQL injection is treated as a literal reference (19.995544ms)
+✔ 08 fees and rounding flagged without hidden writeoff (19.956455ms)
+✔ 09 currency mismatch refuses allocation (18.821462ms)
+✔ 10 dispute after approval suppresses send (26.213547ms)
+✔ 10 dispute before drafting suppresses workflow (18.863255ms)
+✔ 11 reconcile crash rolls back allocation and checkpoint then resumes (23.051125ms)
+✔ 11 dispatch crash rolls back mailbox and retries safely (28.306726ms)
+✔ 12 dispatch and worker retries do not duplicate reminders (27.813671ms)
+✔ 12 concurrent dispatchers serialize delivery (34.199969ms)
+✔ 13 approval required; dry run has no mailbox effect (22.126389ms)
+✔ 13 full settlement blocks previously approved reminder (28.132663ms)
+✔ 14 unsafe amount 0 rejected (9.979148ms)
+✔ 14 unsafe amount -1 rejected (11.246552ms)
+✔ 14 unsafe amount 1.5 rejected (9.768581ms)
+✔ 14 unsafe amount NaN rejected (10.291951ms)
+✔ 14 unsafe amount Infinity rejected (9.453705ms)
+✔ 14 unsafe amount 9007199254740992 rejected (10.036676ms)
+✔ 14 provider failure leaves pending retry with no draft or approval (15.343875ms)
+✔ 14 Claude configuration fails closed without credentials (9.864356ms)
+✔ 15 editing a draft invalidates approval (20.975903ms)
+✔ 15 customer history escalates draft; day 14 is not early (16.773642ms)
+✔ 15 partial payment after approval invalidates stale amount (30.741672ms)
+✔ 16 reconnect preserves scheduled day-14 job (10.118999ms)
+✔ 12 concurrent payments never overallocate an invoice (23.885454ms)
+✔ 16 disk-backed PostgreSQL survives close and reopen with day-14 job (1530.044626ms)
+﹣ 16 native PostgreSQL resumes reconciliation after child SIGKILL mid-step (0.354515ms) # SKIP
+﹣ 16 native PostgreSQL resumes reminder delivery after child SIGKILL (0.071137ms) # SKIP
+ℹ tests 39
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 2
+ℹ todo 0
+ℹ duration_ms 3950.762512
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> buildzn-invoice-to-cash-agent@0.1.0 demo
+> node --import tsx src/demo.ts
+
+All data synthetic. Transport: transactional demo mailbox.
+Invoice 10000 USD minor units. Partial payment 4000. Remaining: 6000
+Dry run: dry-run
+Approved delivery: delivered
+Retry: delivered
+Mailbox records: 1
+Persisted steps: [
+  { job: 'reminder:demo-invoice', name: 'delivered' },
+  { job: 'reminder:demo-invoice', name: 'drafted' },
+  { job: 'reminder:demo-invoice', name: 'escalated' }
+]
+
+Fresh local clone checks passed. Embedded PostgreSQL only; Docker and native CI not run. Working tree clean.

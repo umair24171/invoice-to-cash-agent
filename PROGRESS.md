@@ -7,3 +7,5 @@ Results: TypeScript check passed; 39 tests, 37 passed, 2 skipped native SIGKILL 
 Running: none after checkpoint.
 
 Next: create remote, push history, set description/topics, run native PostgreSQL CI and Docker clean-clone demo. Missing repository creation/auth and host Docker capability are documented in docs/BLOCKERS.md. Do not mark complete yet. No existing repository changed, no hosting deployed.
+
+Fresh local git clone verified: npm ci, formatting, TypeScript, embedded PostgreSQL tests and demo passed. Working tree remained clean. Evidence: docs/clean-clone-output.txt. Native Docker and GitHub Actions gates remain unverified.
