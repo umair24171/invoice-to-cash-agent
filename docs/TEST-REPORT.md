@@ -1,25 +1,14 @@
 # Test report
 
-All fixtures and data are synthetic. Host: Node 24.19.0, TypeScript 5.9.3, PGlite 0.3.14 (embedded PostgreSQL).
+All data synthetic. [Successful native CI and Docker run](https://github.com/umair24171/invoice-to-cash-agent/actions/runs/40029159866), verified code commit `d3e973044a42f6f374a0f7a7882b49a0b5b1f09b`. Complete actual stdout: docs/native-ci-output.txt.
 
-Actual commands: `npm run build`, `TEST_PGLITE=1 npm test`, `TEST_PGLITE=1 npm run demo`.
+| Environment                    | Discovered | Passed | Failed | Skipped |
+| ------------------------------ | ---------: | -----: | -----: | ------: |
+| PostgreSQL service             |         39 |     38 |      0 |       1 |
+| Embedded PostgreSQL complement |         39 |     37 |      0 |       2 |
 
-| Check                     | Result                                         |
-| ------------------------- | ---------------------------------------------- |
-| TypeScript                | Passed                                         |
-| Tests discovered          | 39                                             |
-| Passed                    | 37                                             |
-| Failed                    | 0                                              |
-| Skipped                   | 2                                              |
-| Demo on embedded engine   | Passed                                         |
-| Fresh local clone         | See docs/clean-clone-output.txt once available |
-| Native PostgreSQL service | Not run                                        |
-| Docker Compose demo       | Not run                                        |
-| GitHub Actions            | Not run, no remote repository                  |
-| Live Claude API           | Not run, no paid calls                         |
+All 39 distinct cases passed in at least one appropriate environment. The native SIGKILL reconciliation and delivery checks both executed and passed. Only the embedded disk-reopen test skips on native PostgreSQL; it passed in the embedded complement.
 
-Tests include unit checks, database integration and adversarial cases. The numbered test names map to the written edge cases in docs/PLAN.md. Full stdout is in docs/test-output.txt. Embedded transactions serialize, so local concurrent-call tests do not prove native lock behavior. Two true SIGKILL workflow tests are explicitly skipped here and configured to run against the native CI service.
+Dependency install, formatting, TypeScript, native database tests, embedded complement, configured full-history secret scan, native demo and Docker Compose build/demo passed. Docker ran from a fresh Actions checkout and isolated volume, with no deployment. Earlier fresh local-clone evidence remains in docs/clean-clone-output.txt. Live Claude requests were not made. There are no real customer fixtures.
 
-No tests were deleted or weakened to pass. Assertion normalization, implementation fixes and runtime runner fixes are described in PROGRESS.md and README.md. Source/policy fixture review found no real customer data. A configured credential-pattern scan includes tracked files and historical blobs; it is not a guarantee that all possible secrets are detectable.
-
-Fresh local git clone verified: npm ci, formatting, TypeScript, embedded PostgreSQL tests and demo passed. Working tree remained clean. Evidence: docs/clean-clone-output.txt. Native Docker and GitHub Actions gates remain unverified.
+Known platform-specific assertion/implementation fixes are in PROGRESS.md and history. No test was deleted or weakened: the invoice IPC correction inspects the readiness payload rather than an unrelated optional transport-handle argument.

@@ -1,0 +1,717 @@
+﻿2026-10-23T21:46:22.2616124Z Current runner version: '2.338.0'
+2026-10-23T21:46:22.2634777Z ##[group]Runner Image Provisioner
+2026-10-23T21:46:22.2635422Z Hosted Compute Agent
+2026-10-23T21:46:22.2635819Z Version: 20261012.601
+2026-10-23T21:46:22.2636256Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-23T21:46:22.2636763Z Build Date: 2026-10-12T17:48:21Z
+2026-10-23T21:46:22.2637245Z Worker ID: {b82bfd2e-c590-47c4-8445-303f6aeddfb1}
+2026-10-23T21:46:22.2637722Z Region: centralus
+2026-10-23T21:46:22.2638095Z Cloud: Azure
+2026-10-23T21:46:22.2638471Z ##[endgroup]
+2026-10-23T21:46:22.2639662Z ##[group]Operating System
+2026-10-23T21:46:22.2640299Z Ubuntu
+2026-10-23T21:46:22.2640646Z 26.04.1
+2026-10-23T21:46:22.2641018Z LTS
+2026-10-23T21:46:22.2641383Z ##[endgroup]
+2026-10-23T21:46:22.2641747Z ##[group]Runner Image
+2026-10-23T21:46:22.2642182Z Image: ubuntu-26.04
+2026-10-23T21:46:22.2642547Z Version: 20261012.163.1
+2026-10-23T21:46:22.2643451Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261012.163/images/ubuntu/Ubuntu2604-Readme.md
+2026-10-23T21:46:22.2644490Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261012.163
+2026-10-23T21:46:22.2645156Z ##[endgroup]
+2026-10-23T21:46:22.2645940Z ##[group]GITHUB_TOKEN Permissions
+2026-10-23T21:46:22.2647808Z Contents: read
+2026-10-23T21:46:22.2648201Z Metadata: read
+2026-10-23T21:46:22.2648754Z Packages: read
+2026-10-23T21:46:22.2649137Z ##[endgroup]
+2026-10-23T21:46:22.2650943Z Secret source: Actions
+2026-10-23T21:46:22.2651629Z Cache mode: write
+2026-10-23T21:46:22.2652299Z Prepare workflow directory
+2026-10-23T21:46:22.3060207Z Prepare all required actions
+2026-10-23T21:46:22.3094046Z Getting action download info
+2026-10-23T21:46:22.5384859Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-23T21:46:22.7763532Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-23T21:46:23.4964569Z Complete job name: verify
+2026-10-23T21:46:23.5417505Z ##[group]Checking docker version
+2026-10-23T21:46:23.5427220Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-10-23T21:46:23.6392282Z '1.54'
+2026-10-23T21:46:23.6403145Z Docker daemon API version: '1.54'
+2026-10-23T21:46:23.6404667Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-10-23T21:46:23.6554981Z '1.54'
+2026-10-23T21:46:23.6564866Z Docker client API version: '1.54'
+2026-10-23T21:46:23.6568498Z ##[endgroup]
+2026-10-23T21:46:23.6571105Z ##[group]Clean up resources from previous jobs
+2026-10-23T21:46:23.6575003Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=e17f2e"
+2026-10-23T21:46:23.6702551Z ##[command]/usr/bin/docker network prune --force --filter "label=e17f2e"
+2026-10-23T21:46:23.6823426Z ##[endgroup]
+2026-10-23T21:46:23.6824195Z ##[group]Create local container network
+2026-10-23T21:46:23.6831881Z ##[command]/usr/bin/docker network create --label e17f2e github_network_c0873bab8a8448499e41f92dac1f8a24
+2026-10-23T21:46:23.7539829Z b12df9ea16c2c0d82d6025a9195c9028fd69f879e787de615f5fc94f521b8cd1
+2026-10-23T21:46:23.7552992Z ##[endgroup]
+2026-10-23T21:46:23.7572356Z ##[group]Starting postgres service container
+2026-10-23T21:46:23.7587479Z ##[command]/usr/bin/docker pull postgres:16
+2026-10-23T21:46:24.2400911Z 16: Pulling from library/postgres
+2026-10-23T21:46:24.4502141Z f2be67225471: Pulling fs layer
+2026-10-23T21:46:24.4502994Z 48eee0ea92d8: Pulling fs layer
+2026-10-23T21:46:24.4503625Z ef42abb17c7a: Pulling fs layer
+2026-10-23T21:46:24.4504186Z e9da7c9f979b: Pulling fs layer
+2026-10-23T21:46:24.4504594Z b1c4822f4553: Pulling fs layer
+2026-10-23T21:46:24.4504950Z c85ce0e29e80: Pulling fs layer
+2026-10-23T21:46:24.4505376Z 46109ed24d00: Pulling fs layer
+2026-10-23T21:46:24.4505725Z 852f46917486: Pulling fs layer
+2026-10-23T21:46:24.4506087Z 9fbbdc3bcbff: Pulling fs layer
+2026-10-23T21:46:24.4506474Z 25140b6d6501: Pulling fs layer
+2026-10-23T21:46:24.4506838Z f2010d5c8971: Pulling fs layer
+2026-10-23T21:46:24.4507980Z c79a7210985e: Pulling fs layer
+2026-10-23T21:46:24.4508331Z d9b4aee93490: Pulling fs layer
+2026-10-23T21:46:24.4508687Z 393ce45a5829: Pulling fs layer
+2026-10-23T21:46:24.5728615Z 393ce45a5829: Download complete
+2026-10-23T21:46:24.6713584Z d9b4aee93490: Download complete
+2026-10-23T21:46:24.6734700Z 9fbbdc3bcbff: Download complete
+2026-10-23T21:46:24.6746008Z f2010d5c8971: Download complete
+2026-10-23T21:46:24.6754278Z 852f46917486: Download complete
+2026-10-23T21:46:24.6773427Z ef42abb17c7a: Download complete
+2026-10-23T21:46:24.6786597Z c85ce0e29e80: Download complete
+2026-10-23T21:46:24.6789100Z 25140b6d6501: Download complete
+2026-10-23T21:46:24.6796110Z e9da7c9f979b: Download complete
+2026-10-23T21:46:24.8714521Z b1c4822f4553: Download complete
+2026-10-23T21:46:24.9715589Z 22f39cf62ad6: Download complete
+2026-10-23T21:46:24.9717720Z f2be67225471: Download complete
+2026-10-23T21:46:24.9720243Z 46109ed24d00: Download complete
+2026-10-23T21:46:24.9722716Z 48eee0ea92d8: Download complete
+2026-10-23T21:46:24.9724600Z 29e2244f39ca: Download complete
+2026-10-23T21:46:25.7718104Z c79a7210985e: Download complete
+2026-10-23T21:46:25.7730545Z d9b4aee93490: Pull complete
+2026-10-23T21:46:25.7813117Z f2be67225471: Pull complete
+2026-10-23T21:46:25.8773205Z b1c4822f4553: Pull complete
+2026-10-23T21:46:25.8782765Z 46109ed24d00: Pull complete
+2026-10-23T21:46:25.9750547Z ef42abb17c7a: Pull complete
+2026-10-23T21:46:25.9782874Z 48eee0ea92d8: Pull complete
+2026-10-23T21:46:26.0737174Z 9fbbdc3bcbff: Pull complete
+2026-10-23T21:46:26.0761704Z c85ce0e29e80: Pull complete
+2026-10-23T21:46:27.2715198Z 393ce45a5829: Pull complete
+2026-10-23T21:46:27.2729458Z f2010d5c8971: Pull complete
+2026-10-23T21:46:27.2745618Z 393ce45a5829: Pull complete
+2026-10-23T21:46:27.2753505Z f2010d5c8971: Pull complete
+2026-10-23T21:46:27.2761917Z 852f46917486: Pull complete
+2026-10-23T21:46:27.2773028Z 25140b6d6501: Pull complete
+2026-10-23T21:46:27.2782575Z e9da7c9f979b: Pull complete
+2026-10-23T21:46:27.2792226Z c79a7210985e: Pull complete
+2026-10-23T21:46:27.2793120Z Digest: sha256:9e2cf6287f25c3151f4c9421ccce2b17f3e60061c111a29165e0d2cdd9ff0a97
+2026-10-23T21:46:27.2793758Z Status: Downloaded newer image for postgres:16
+2026-10-23T21:46:27.2800333Z docker.io/library/postgres:16
+2026-10-23T21:46:27.2871794Z ##[command]/usr/bin/docker create --name 7ad8597c99154db98d872c1af7a58309_postgres16_1223c3 --label e17f2e --network github_network_c0873bab8a8448499e41f92dac1f8a24 --network-alias postgres -p 5432:5432 --health-cmd "pg_isready -U portfolio" --health-interval 2s --health-timeout 2s --health-retries 30 -e "POSTGRES_USER=portfolio" -e "POSTGRES_PASSWORD=synthetic-local-only" -e "POSTGRES_DB=portfolio" -e GITHUB_ACTIONS=true -e CI=true postgres:16
+2026-10-23T21:46:33.1817448Z e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba
+2026-10-23T21:46:33.1836934Z ##[command]/usr/bin/docker start e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba
+2026-10-23T21:46:33.3589549Z e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba
+2026-10-23T21:46:33.3609590Z ##[command]/usr/bin/docker ps --all --filter id=e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-10-23T21:46:33.3870241Z e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba Up Less than a second (health: starting)
+2026-10-23T21:46:33.3901151Z ##[command]/usr/bin/docker port e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba
+2026-10-23T21:46:33.4048875Z 5432/tcp -> 0.0.0.0:5432
+2026-10-23T21:46:33.4049561Z 5432/tcp -> [::]:5432
+2026-10-23T21:46:33.4118717Z ##[endgroup]
+2026-10-23T21:46:33.4128656Z ##[group]Waiting for all services to be ready
+2026-10-23T21:46:33.4144078Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba
+2026-10-23T21:46:33.4292799Z starting
+2026-10-23T21:46:33.4330380Z postgres service is starting, waiting 2 seconds before checking again.
+2026-10-23T21:46:35.4333667Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba
+2026-10-23T21:46:35.4446325Z healthy
+2026-10-23T21:46:35.4456499Z postgres service is healthy.
+2026-10-23T21:46:35.4456945Z ##[endgroup]
+2026-10-23T21:46:35.4682356Z ##[group]Run actions/checkout@v4
+2026-10-23T21:46:35.4682726Z with:
+2026-10-23T21:46:35.4682924Z   fetch-depth: 0
+2026-10-23T21:46:35.4683235Z   repository: umair24171/invoice-to-cash-agent
+2026-10-23T21:46:35.4685224Z   token: ***
+2026-10-23T21:46:35.4685451Z   ssh-strict: true
+2026-10-23T21:46:35.4685658Z   ssh-user: git
+2026-10-23T21:46:35.4685864Z   persist-credentials: true
+2026-10-23T21:46:35.4686138Z   clean: true
+2026-10-23T21:46:35.4686441Z   sparse-checkout-cone-mode: true
+2026-10-23T21:46:35.4686729Z   fetch-tags: false
+2026-10-23T21:46:35.4686942Z   show-progress: true
+2026-10-23T21:46:35.4687155Z   lfs: false
+2026-10-23T21:46:35.4687403Z   submodules: false
+2026-10-23T21:46:35.4687624Z   set-safe-directory: true
+2026-10-23T21:46:35.4688112Z   allow-unsafe-pr-checkout: false
+2026-10-23T21:46:35.4688506Z env:
+2026-10-23T21:46:35.4689006Z   DATABASE_URL: ***localhost:5432/portfolio
+2026-10-23T21:46:35.4689285Z ##[endgroup]
+2026-10-23T21:46:35.5450341Z Syncing repository: umair24171/invoice-to-cash-agent
+2026-10-23T21:46:35.5451877Z ##[group]Getting Git version info
+2026-10-23T21:46:35.5452918Z Working directory is '/home/runner/work/invoice-to-cash-agent/invoice-to-cash-agent'
+2026-10-23T21:46:35.5453754Z [command]/usr/bin/git version
+2026-10-23T21:46:35.5454206Z git version 2.55.0
+2026-10-23T21:46:35.5455511Z ##[endgroup]
+2026-10-23T21:46:35.5459663Z Temporarily overriding HOME='/home/runner/work/_temp/256054af-df37-4350-b63f-22c28995d344' before making global git config changes
+2026-10-23T21:46:35.5460798Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-23T21:46:35.5461682Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/invoice-to-cash-agent/invoice-to-cash-agent
+2026-10-23T21:46:35.5490586Z Deleting the contents of '/home/runner/work/invoice-to-cash-agent/invoice-to-cash-agent'
+2026-10-23T21:46:35.5493025Z ##[group]Initializing the repository
+2026-10-23T21:46:35.5496663Z [command]/usr/bin/git init /home/runner/work/invoice-to-cash-agent/invoice-to-cash-agent
+2026-10-23T21:46:35.5603860Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-23T21:46:35.5604404Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-23T21:46:35.5604985Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-23T21:46:35.5605436Z hint: call:
+2026-10-23T21:46:35.5605668Z hint:
+2026-10-23T21:46:35.5606042Z hint: 	git config --global init.defaultBranch <name>
+2026-10-23T21:46:35.5606377Z hint:
+2026-10-23T21:46:35.5606746Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-23T21:46:35.5607335Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-23T21:46:35.5607752Z hint:
+2026-10-23T21:46:35.5608052Z hint: 	git branch -m <name>
+2026-10-23T21:46:35.5608333Z hint:
+2026-10-23T21:46:35.5608708Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-23T21:46:35.5609507Z Initialized empty Git repository in /home/runner/work/invoice-to-cash-agent/invoice-to-cash-agent/.git/
+2026-10-23T21:46:35.5616765Z [command]/usr/bin/git remote add origin https://github.com/umair24171/invoice-to-cash-agent
+2026-10-23T21:46:35.5656578Z ##[endgroup]
+2026-10-23T21:46:35.5657109Z ##[group]Disabling automatic garbage collection
+2026-10-23T21:46:35.5659803Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-23T21:46:35.5684268Z ##[endgroup]
+2026-10-23T21:46:35.5684724Z ##[group]Setting up auth
+2026-10-23T21:46:35.5689168Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-23T21:46:35.5714955Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-23T21:46:35.6041539Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-23T21:46:35.6062787Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-23T21:46:35.6223944Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-23T21:46:35.6245440Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-23T21:46:35.6405822Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-23T21:46:35.6437565Z ##[endgroup]
+2026-10-23T21:46:35.6438147Z ##[group]Fetching the repository
+2026-10-23T21:46:35.6444848Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-10-23T21:46:36.0725580Z From https://github.com/umair24171/invoice-to-cash-agent
+2026-10-23T21:46:36.0725930Z  * [new branch]      main       -> origin/main
+2026-10-23T21:46:36.0735889Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-23T21:46:36.0754507Z   origin/main
+2026-10-23T21:46:36.0762156Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-23T21:46:36.0778462Z d3e973044a42f6f374a0f7a7882b49a0b5b1f09b
+2026-10-23T21:46:36.0781272Z ##[endgroup]
+2026-10-23T21:46:36.0781775Z ##[group]Determining the checkout info
+2026-10-23T21:46:36.0782365Z ##[endgroup]
+2026-10-23T21:46:36.0787005Z [command]/usr/bin/git sparse-checkout disable
+2026-10-23T21:46:36.0905025Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-23T21:46:36.0928732Z ##[group]Checking out the ref
+2026-10-23T21:46:36.0931895Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-23T21:46:36.0976460Z Switched to a new branch 'main'
+2026-10-23T21:46:36.0977116Z branch 'main' set up to track 'origin/main'.
+2026-10-23T21:46:36.0980561Z ##[endgroup]
+2026-10-23T21:46:36.1011015Z [command]/usr/bin/git log -1 --format=%H
+2026-10-23T21:46:36.1026028Z d3e973044a42f6f374a0f7a7882b49a0b5b1f09b
+2026-10-23T21:46:36.1198142Z ##[group]Run actions/setup-node@v4
+2026-10-23T21:46:36.1198377Z with:
+2026-10-23T21:46:36.1198570Z   node-version: 24
+2026-10-23T21:46:36.1198767Z   cache: npm
+2026-10-23T21:46:36.1198957Z   always-auth: false
+2026-10-23T21:46:36.1199188Z   check-latest: false
+2026-10-23T21:46:36.1201287Z   token: ***
+2026-10-23T21:46:36.1201486Z env:
+2026-10-23T21:46:36.1201835Z   DATABASE_URL: ***localhost:5432/portfolio
+2026-10-23T21:46:36.1202060Z ##[endgroup]
+2026-10-23T21:46:36.2154688Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-23T21:46:36.2157526Z (node:2562) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-23T21:46:36.2158158Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-23T21:46:36.2159608Z ##[group]Environment details
+2026-10-23T21:46:36.5275723Z node: v24.21.0
+2026-10-23T21:46:36.5276122Z npm: 11.19.0
+2026-10-23T21:46:36.5276467Z yarn: 1.22.22
+2026-10-23T21:46:36.5277481Z ##[endgroup]
+2026-10-23T21:46:36.5332031Z [command]/opt/hostedtoolcache/node/24.21.0/x64/bin/npm config get cache
+2026-10-23T21:46:36.6123937Z /home/runner/.npm
+2026-10-23T21:46:36.7466650Z npm cache is not found
+2026-10-23T21:46:36.7564491Z ##[group]Run npm ci
+2026-10-23T21:46:36.7564824Z [36;1mnpm ci[0m
+2026-10-23T21:46:36.7682780Z shell: /usr/bin/bash -e {0}
+2026-10-23T21:46:36.7683066Z env:
+2026-10-23T21:46:36.7683561Z   DATABASE_URL: ***localhost:5432/portfolio
+2026-10-23T21:46:36.7683904Z ##[endgroup]
+2026-10-23T21:46:37.9252773Z 
+2026-10-23T21:46:37.9257817Z added 25 packages, and audited 26 packages in 1s
+2026-10-23T21:46:37.9258203Z 
+2026-10-23T21:46:37.9258412Z 3 packages are looking for funding
+2026-10-23T21:46:37.9258799Z   run `npm fund` for details
+2026-10-23T21:46:37.9260966Z 
+2026-10-23T21:46:37.9261136Z found 0 vulnerabilities
+2026-10-23T21:46:37.9267864Z npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+2026-10-23T21:46:37.9268590Z npm warn install-scripts   esbuild@0.25.12 (postinstall: node install.js)
+2026-10-23T21:46:37.9269017Z npm warn install-scripts
+2026-10-23T21:46:37.9269699Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-10-23T21:46:37.9400905Z ##[group]Run npm run format:check
+2026-10-23T21:46:37.9401201Z [36;1mnpm run format:check[0m
+2026-10-23T21:46:37.9433899Z shell: /usr/bin/bash -e {0}
+2026-10-23T21:46:37.9434467Z env:
+2026-10-23T21:46:37.9435051Z   DATABASE_URL: ***localhost:5432/portfolio
+2026-10-23T21:46:37.9435332Z ##[endgroup]
+2026-10-23T21:46:38.0125813Z 
+2026-10-23T21:46:38.0126733Z > buildzn-invoice-to-cash-agent@0.1.0 format:check
+2026-10-23T21:46:38.0127480Z > prettier --check src tests scripts *.json *.yml .github/workflows/*.yml *.md docs/*.md
+2026-10-23T21:46:38.0127906Z 
+2026-10-23T21:46:38.0761803Z Checking formatting...
+2026-10-23T21:46:38.4101281Z All matched files use Prettier code style!
+2026-10-23T21:46:38.4257883Z ##[group]Run npm run build
+2026-10-23T21:46:38.4258169Z [36;1mnpm run build[0m
+2026-10-23T21:46:38.4290608Z shell: /usr/bin/bash -e {0}
+2026-10-23T21:46:38.4290872Z env:
+2026-10-23T21:46:38.4291511Z   DATABASE_URL: ***localhost:5432/portfolio
+2026-10-23T21:46:38.4291849Z ##[endgroup]
+2026-10-23T21:46:38.4988450Z 
+2026-10-23T21:46:38.4989227Z > buildzn-invoice-to-cash-agent@0.1.0 build
+2026-10-23T21:46:38.4989797Z > tsc --noEmit
+2026-10-23T21:46:38.4990138Z 
+2026-10-23T21:46:39.1894542Z ##[group]Run npm test
+2026-10-23T21:46:39.1894833Z [36;1mnpm test[0m
+2026-10-23T21:46:39.1928353Z shell: /usr/bin/bash -e {0}
+2026-10-23T21:46:39.1928645Z env:
+2026-10-23T21:46:39.1929382Z   DATABASE_URL: ***localhost:5432/portfolio
+2026-10-23T21:46:39.1929657Z ##[endgroup]
+2026-10-23T21:46:39.2818575Z 
+2026-10-23T21:46:39.2819072Z > buildzn-invoice-to-cash-agent@0.1.0 test
+2026-10-23T21:46:39.2819604Z > node --import tsx --test --test-concurrency=1 tests/*.test.ts
+2026-10-23T21:46:39.2820031Z 
+2026-10-23T21:46:39.6344823Z ✔ 01 partial payment leaves exact balance and reminder (111.87381ms)
+2026-10-23T21:46:39.6757141Z ✔ 02 overpayment is conserved as unapplied review (41.734099ms)
+2026-10-23T21:46:39.7292268Z ✔ 03 one line covers several invoices in explicit reference order (53.215567ms)
+2026-10-23T21:46:39.7831880Z ✔ 04 several payments settle one invoice (54.020563ms)
+2026-10-23T21:46:39.8171445Z ✔ 05 duplicate statement ID allocates once (34.071388ms)
+2026-10-23T21:46:39.8481805Z ✔ 05 conflicting bank ID rejected (30.975613ms)
+2026-10-23T21:46:39.8997865Z ✔ 05 same content under different source ID quarantined (51.546049ms)
+2026-10-23T21:46:39.9328845Z ✔ 06 duplicate invoice imports once and conflicting amount rejected (33.036916ms)
+2026-10-23T21:46:39.9792672Z ✔ 07 references [] allocate nothing (46.206909ms)
+2026-10-23T21:46:40.0069089Z ✔ 07 references ["WRONG"] allocate nothing (27.698351ms)
+2026-10-23T21:46:40.0382103Z ✔ 07 references ["INV-1","WRONG"] allocate nothing (31.280175ms)
+2026-10-23T21:46:40.0653993Z ✔ 07 reference owned by another customer allocates nothing (27.131696ms)
+2026-10-23T21:46:40.0911383Z ✔ 07 SQL injection is treated as a literal reference (25.704928ms)
+2026-10-23T21:46:40.1250576Z ✔ 08 fees and rounding flagged without hidden writeoff (33.917372ms)
+2026-10-23T21:46:40.1530442Z ✔ 09 currency mismatch refuses allocation (27.967551ms)
+2026-10-23T21:46:40.1834105Z ✔ 10 dispute after approval suppresses send (30.317619ms)
+2026-10-23T21:46:40.2292600Z ✔ 10 dispute before drafting suppresses workflow (45.712283ms)
+2026-10-23T21:46:40.2608737Z ✔ 11 reconcile crash rolls back allocation and checkpoint then resumes (31.660645ms)
+2026-10-23T21:46:40.3044095Z ✔ 11 dispatch crash rolls back mailbox and retries safely (43.516718ms)
+2026-10-23T21:46:40.3370891Z ✔ 12 dispatch and worker retries do not duplicate reminders (32.387344ms)
+2026-10-23T21:46:40.3850486Z ✔ 12 concurrent dispatchers serialize delivery (48.158496ms)
+2026-10-23T21:46:40.4167262Z ✔ 13 approval required; dry run has no mailbox effect (31.590681ms)
+2026-10-23T21:46:40.4487880Z ✔ 13 full settlement blocks previously approved reminder (32.041034ms)
+2026-10-23T21:46:40.4918104Z ✔ 14 unsafe amount 0 rejected (42.790159ms)
+2026-10-23T21:46:40.5145113Z ✔ 14 unsafe amount -1 rejected (22.953294ms)
+2026-10-23T21:46:40.5364698Z ✔ 14 unsafe amount 1.5 rejected (21.897065ms)
+2026-10-23T21:46:40.5725133Z ✔ 14 unsafe amount NaN rejected (36.013783ms)
+2026-10-23T21:46:40.5948657Z ✔ 14 unsafe amount Infinity rejected (22.336263ms)
+2026-10-23T21:46:40.6159441Z ✔ 14 unsafe amount 9007199254740992 rejected (21.037067ms)
+2026-10-23T21:46:40.6461928Z ✔ 14 provider failure leaves pending retry with no draft or approval (30.14506ms)
+2026-10-23T21:46:40.6757215Z ✔ 14 Claude configuration fails closed without credentials (29.508142ms)
+2026-10-23T21:46:40.7019718Z ✔ 15 editing a draft invalidates approval (26.209965ms)
+2026-10-23T21:46:40.7454403Z ✔ 15 customer history escalates draft; day 14 is not early (43.485076ms)
+2026-10-23T21:46:40.7800856Z ✔ 15 partial payment after approval invalidates stale amount (34.544356ms)
+2026-10-23T21:46:40.8197129Z ✔ 16 reconnect preserves scheduled day-14 job (39.629654ms)
+2026-10-23T21:46:40.8637103Z ✔ 12 concurrent payments never overallocate an invoice (43.530555ms)
+2026-10-23T21:46:41.0422870Z ﹣ 16 disk-backed PostgreSQL survives close and reopen with day-14 job (0.52527ms) # SKIP
+2026-10-23T21:46:41.2532813Z ✔ 16 native PostgreSQL resumes reconciliation after child SIGKILL mid-step (217.192282ms)
+2026-10-23T21:46:41.4253993Z ✔ 16 native PostgreSQL resumes reminder delivery after child SIGKILL (172.224481ms)
+2026-10-23T21:46:41.4336669Z ℹ tests 39
+2026-10-23T21:46:41.4337017Z ℹ suites 0
+2026-10-23T21:46:41.4337415Z ℹ pass 38
+2026-10-23T21:46:41.4337681Z ℹ fail 0
+2026-10-23T21:46:41.4337973Z ℹ cancelled 0
+2026-10-23T21:46:41.4338270Z ℹ skipped 1
+2026-10-23T21:46:41.4338482Z ℹ todo 0
+2026-10-23T21:46:41.4338713Z ℹ duration_ms 2124.318257
+2026-10-23T21:46:41.4452872Z ##[group]Run DATABASE_URL= TEST_PGLITE=1 npm test
+2026-10-23T21:46:41.4453238Z [36;1mDATABASE_URL= TEST_PGLITE=1 npm test[0m
+2026-10-23T21:46:41.4487848Z shell: /usr/bin/bash -e {0}
+2026-10-23T21:46:41.4488133Z env:
+2026-10-23T21:46:41.4488695Z   DATABASE_URL: ***localhost:5432/portfolio
+2026-10-23T21:46:41.4489018Z ##[endgroup]
+2026-10-23T21:46:41.5148776Z 
+2026-10-23T21:46:41.5149310Z > buildzn-invoice-to-cash-agent@0.1.0 test
+2026-10-23T21:46:41.5149754Z > node --import tsx --test --test-concurrency=1 tests/*.test.ts
+2026-10-23T21:46:41.5150160Z 
+2026-10-23T21:46:43.2243917Z ✔ 01 partial payment leaves exact balance and reminder (887.256526ms)
+2026-10-23T21:46:43.2244896Z ✔ 02 overpayment is conserved as unapplied review (22.011877ms)
+2026-10-23T21:46:43.2245531Z ✔ 03 one line covers several invoices in explicit reference order (21.310112ms)
+2026-10-23T21:46:43.2246955Z ✔ 04 several payments settle one invoice (23.05546ms)
+2026-10-23T21:46:43.2247751Z ✔ 05 duplicate statement ID allocates once (19.007143ms)
+2026-10-23T21:46:43.2248658Z ✔ 05 conflicting bank ID rejected (18.825964ms)
+2026-10-23T21:46:43.2249294Z ✔ 05 same content under different source ID quarantined (20.761118ms)
+2026-10-23T21:46:43.2252983Z ✔ 06 duplicate invoice imports once and conflicting amount rejected (15.829603ms)
+2026-10-23T21:46:43.2254019Z ✔ 07 references [] allocate nothing (13.302338ms)
+2026-10-23T21:46:43.2254912Z ✔ 07 references ["WRONG"] allocate nothing (16.261955ms)
+2026-10-23T21:46:43.2255560Z ✔ 07 references ["INV-1","WRONG"] allocate nothing (11.618512ms)
+2026-10-23T21:46:43.2256262Z ✔ 07 reference owned by another customer allocates nothing (12.419474ms)
+2026-10-23T21:46:43.2257336Z ✔ 07 SQL injection is treated as a literal reference (13.58861ms)
+2026-10-23T21:46:43.2258197Z ✔ 08 fees and rounding flagged without hidden writeoff (16.041138ms)
+2026-10-23T21:46:43.2267155Z ✔ 09 currency mismatch refuses allocation (11.904868ms)
+2026-10-23T21:46:43.2268087Z ✔ 10 dispute after approval suppresses send (20.484505ms)
+2026-10-23T21:46:43.2268640Z ✔ 10 dispute before drafting suppresses workflow (11.886002ms)
+2026-10-23T21:46:43.2269407Z ✔ 11 reconcile crash rolls back allocation and checkpoint then resumes (16.93063ms)
+2026-10-23T21:46:43.2270397Z ✔ 11 dispatch crash rolls back mailbox and retries safely (23.12199ms)
+2026-10-23T21:46:43.2271066Z ✔ 12 dispatch and worker retries do not duplicate reminders (21.377079ms)
+2026-10-23T21:46:43.2271773Z ✔ 12 concurrent dispatchers serialize delivery (27.252684ms)
+2026-10-23T21:46:43.2272399Z ✔ 13 approval required; dry run has no mailbox effect (19.581393ms)
+2026-10-23T21:46:43.2273103Z ✔ 13 full settlement blocks previously approved reminder (24.068249ms)
+2026-10-23T21:46:43.2273711Z ✔ 14 unsafe amount 0 rejected (7.427312ms)
+2026-10-23T21:46:43.2276179Z ✔ 14 unsafe amount -1 rejected (9.67805ms)
+2026-10-23T21:46:43.2276670Z ✔ 14 unsafe amount 1.5 rejected (7.28504ms)
+2026-10-23T21:46:43.2277102Z ✔ 14 unsafe amount NaN rejected (7.422844ms)
+2026-10-23T21:46:43.2277665Z ✔ 14 unsafe amount Infinity rejected (6.951725ms)
+2026-10-23T21:46:43.2278155Z ✔ 14 unsafe amount 9007199254740992 rejected (6.927393ms)
+2026-10-23T21:46:43.2278726Z ✔ 14 provider failure leaves pending retry with no draft or approval (11.813084ms)
+2026-10-23T21:46:43.2291566Z ✔ 14 Claude configuration fails closed without credentials (7.097506ms)
+2026-10-23T21:46:43.2292385Z ✔ 15 editing a draft invalidates approval (15.699653ms)
+2026-10-23T21:46:43.2293151Z ✔ 15 customer history escalates draft; day 14 is not early (11.94642ms)
+2026-10-23T21:46:43.2293903Z ✔ 15 partial payment after approval invalidates stale amount (23.003009ms)
+2026-10-23T21:46:43.2294660Z ✔ 16 reconnect preserves scheduled day-14 job (7.215351ms)
+2026-10-23T21:46:43.2298056Z ✔ 12 concurrent payments never overallocate an invoice (18.519452ms)
+2026-10-23T21:46:44.5612998Z ✔ 16 disk-backed PostgreSQL survives close and reopen with day-14 job (1150.467571ms)
+2026-10-23T21:46:44.5614791Z ﹣ 16 native PostgreSQL resumes reconciliation after child SIGKILL mid-step (0.259251ms) # SKIP
+2026-10-23T21:46:44.5616008Z ﹣ 16 native PostgreSQL resumes reminder delivery after child SIGKILL (0.071094ms) # SKIP
+2026-10-23T21:46:44.5968835Z ℹ tests 39
+2026-10-23T21:46:44.5969321Z ℹ suites 0
+2026-10-23T21:46:44.5969666Z ℹ pass 37
+2026-10-23T21:46:44.5970300Z ℹ fail 0
+2026-10-23T21:46:44.5970636Z ℹ cancelled 0
+2026-10-23T21:46:44.5970956Z ℹ skipped 2
+2026-10-23T21:46:44.5971292Z ℹ todo 0
+2026-10-23T21:46:44.5971625Z ℹ duration_ms 3055.923624
+2026-10-23T21:46:44.6092669Z ##[group]Run npm run scan
+2026-10-23T21:46:44.6092983Z [36;1mnpm run scan[0m
+2026-10-23T21:46:44.6126713Z shell: /usr/bin/bash -e {0}
+2026-10-23T21:46:44.6127048Z env:
+2026-10-23T21:46:44.6127585Z   DATABASE_URL: ***localhost:5432/portfolio
+2026-10-23T21:46:44.6127850Z ##[endgroup]
+2026-10-23T21:46:44.6947862Z 
+2026-10-23T21:46:44.6948502Z > buildzn-invoice-to-cash-agent@0.1.0 scan
+2026-10-23T21:46:44.6949327Z > node scripts/scan.mjs
+2026-10-23T21:46:44.6949767Z 
+2026-10-23T21:46:44.9995485Z Scanned 34 tracked files and 69 historical blobs: no configured credential patterns or env files. Synthetic fixtures reviewed separately. This pattern scan is not proof of absence.
+2026-10-23T21:46:45.0080572Z ##[group]Run npm run demo
+2026-10-23T21:46:45.0080838Z [36;1mnpm run demo[0m
+2026-10-23T21:46:45.0107229Z shell: /usr/bin/bash -e {0}
+2026-10-23T21:46:45.0107479Z env:
+2026-10-23T21:46:45.0107971Z   DATABASE_URL: ***localhost:5432/portfolio
+2026-10-23T21:46:45.0108236Z ##[endgroup]
+2026-10-23T21:46:45.0767820Z 
+2026-10-23T21:46:45.0768606Z > buildzn-invoice-to-cash-agent@0.1.0 demo
+2026-10-23T21:46:45.0769139Z > node --import tsx src/demo.ts
+2026-10-23T21:46:45.0769561Z 
+2026-10-23T21:46:45.2677901Z All data synthetic. Transport: transactional demo mailbox.
+2026-10-23T21:46:45.2683709Z Invoice 10000 USD minor units. Partial payment 4000. Remaining: 6000
+2026-10-23T21:46:45.2751619Z Dry run: dry-run
+2026-10-23T21:46:45.2774085Z Approved delivery: delivered
+2026-10-23T21:46:45.2795451Z Retry: delivered
+2026-10-23T21:46:45.2799054Z Mailbox records: 1
+2026-10-23T21:46:45.2804426Z Persisted steps: [
+2026-10-23T21:46:45.2805249Z   { job: 'reminder:demo-invoice', name: 'delivered' },
+2026-10-23T21:46:45.2805803Z   { job: 'reminder:demo-invoice', name: 'drafted' },
+2026-10-23T21:46:45.2806385Z   { job: 'reminder:demo-invoice', name: 'escalated' }
+2026-10-23T21:46:45.2806725Z ]
+2026-10-23T21:46:45.2939023Z ##[group]Run unset DATABASE_URL
+2026-10-23T21:46:45.2939290Z [36;1munset DATABASE_URL[0m
+2026-10-23T21:46:45.2939657Z [36;1mdocker compose up --build --abort-on-container-exit --exit-code-from app[0m
+2026-10-23T21:46:45.2940561Z [36;1mdocker compose down -v[0m
+2026-10-23T21:46:45.2966471Z shell: /usr/bin/bash -e {0}
+2026-10-23T21:46:45.2966759Z env:
+2026-10-23T21:46:45.2967322Z   DATABASE_URL: ***localhost:5432/portfolio
+2026-10-23T21:46:45.2967586Z ##[endgroup]
+2026-10-23T21:46:45.6196673Z  Image invoice-to-cash-agent-app Building 
+2026-10-23T21:46:45.7095095Z #1 [internal] load local bake definitions
+2026-10-23T21:46:45.9043269Z #1 reading from stdin 590B done
+2026-10-23T21:46:45.9043643Z #1 DONE 0.0s
+2026-10-23T21:46:45.9043790Z 
+2026-10-23T21:46:45.9044071Z #2 [internal] load build definition from Dockerfile
+2026-10-23T21:46:45.9044405Z #2 transferring dockerfile: 164B done
+2026-10-23T21:46:45.9044638Z #2 DONE 0.0s
+2026-10-23T21:46:45.9044790Z 
+2026-10-23T21:46:45.9045057Z #3 [auth] library/node:pull token for registry-1.docker.io
+2026-10-23T21:46:46.0546246Z #3 DONE 0.0s
+2026-10-23T21:46:46.0546425Z 
+2026-10-23T21:46:46.0546745Z #4 [internal] load metadata for docker.io/library/node:24-bookworm-slim
+2026-10-23T21:46:46.4205032Z #4 DONE 0.6s
+2026-10-23T21:46:46.5398541Z 
+2026-10-23T21:46:46.5399415Z #5 [internal] load .dockerignore
+2026-10-23T21:46:46.5400045Z #5 transferring context: 76B done
+2026-10-23T21:46:46.5400483Z #5 DONE 0.0s
+2026-10-23T21:46:46.5400677Z 
+2026-10-23T21:46:46.5400840Z #6 [internal] load build context
+2026-10-23T21:46:46.5401247Z #6 transferring context: 90.93kB done
+2026-10-23T21:46:46.5401566Z #6 DONE 0.0s
+2026-10-23T21:46:46.5401707Z 
+2026-10-23T21:46:46.5402245Z #7 [1/6] FROM docker.io/library/node:24-bookworm-slim@sha256:55fb5f5a527ea2c5c4a95f963e48ef90aa38c7b346054fdc8ee9957a2b55d205
+2026-10-23T21:46:46.5403250Z #7 resolve docker.io/library/node:24-bookworm-slim@sha256:55fb5f5a527ea2c5c4a95f963e48ef90aa38c7b346054fdc8ee9957a2b55d205 done
+2026-10-23T21:46:46.5404262Z #7 sha256:6d793208473aa7d9ccc02b9de99aee40e4d6e73065d5307d076fad3ba554d580 450B / 450B 0.0s done
+2026-10-23T21:46:46.6469657Z #7 sha256:47e82ed2c7200e6bb57827745085027ba425376a5ed4ba4a8e295a4e3b5d1b40 3.31kB / 3.31kB 0.1s done
+2026-10-23T21:46:46.6470584Z #7 sha256:f2b8e65232e105b573ea2f37c4a2ec56bcf0b63687ae2bbe329cf4252f30bc1d 1.71MB / 1.71MB 0.1s done
+2026-10-23T21:46:46.6471378Z #7 sha256:c0e48fd1aa256850e18f180365b8fa3e55ae2197e85461fd3392cfb5c4c8e5e7 0B / 51.08MB 0.2s
+2026-10-23T21:46:46.7966502Z #7 sha256:c0e48fd1aa256850e18f180365b8fa3e55ae2197e85461fd3392cfb5c4c8e5e7 25.17MB / 51.08MB 0.3s
+2026-10-23T21:46:46.7968122Z #7 sha256:11422d7ca1a44390a32bd8d8d9dc5946b4d053b3bbd9507d682e35584ba84a26 3.15MB / 28.25MB 0.2s
+2026-10-23T21:46:46.9467692Z #7 sha256:c0e48fd1aa256850e18f180365b8fa3e55ae2197e85461fd3392cfb5c4c8e5e7 51.08MB / 51.08MB 0.5s
+2026-10-23T21:46:46.9468454Z #7 sha256:11422d7ca1a44390a32bd8d8d9dc5946b4d053b3bbd9507d682e35584ba84a26 28.25MB / 28.25MB 0.3s
+2026-10-23T21:46:47.3382505Z #7 sha256:c0e48fd1aa256850e18f180365b8fa3e55ae2197e85461fd3392cfb5c4c8e5e7 51.08MB / 51.08MB 0.7s done
+2026-10-23T21:46:47.3383852Z #7 sha256:11422d7ca1a44390a32bd8d8d9dc5946b4d053b3bbd9507d682e35584ba84a26 28.25MB / 28.25MB 0.5s done
+2026-10-23T21:46:47.3384941Z #7 extracting sha256:11422d7ca1a44390a32bd8d8d9dc5946b4d053b3bbd9507d682e35584ba84a26
+2026-10-23T21:46:47.5816287Z #7 extracting sha256:11422d7ca1a44390a32bd8d8d9dc5946b4d053b3bbd9507d682e35584ba84a26 0.4s done
+2026-10-23T21:46:47.5816773Z #7 DONE 1.1s
+2026-10-23T21:46:47.7383599Z 
+2026-10-23T21:46:47.7384415Z #7 [1/6] FROM docker.io/library/node:24-bookworm-slim@sha256:55fb5f5a527ea2c5c4a95f963e48ef90aa38c7b346054fdc8ee9957a2b55d205
+2026-10-23T21:46:47.7385251Z #7 extracting sha256:47e82ed2c7200e6bb57827745085027ba425376a5ed4ba4a8e295a4e3b5d1b40 done
+2026-10-23T21:46:47.7385996Z #7 extracting sha256:c0e48fd1aa256850e18f180365b8fa3e55ae2197e85461fd3392cfb5c4c8e5e7
+2026-10-23T21:46:48.2197409Z #7 extracting sha256:c0e48fd1aa256850e18f180365b8fa3e55ae2197e85461fd3392cfb5c4c8e5e7 0.6s done
+2026-10-23T21:46:48.2198186Z #7 DONE 1.8s
+2026-10-23T21:46:48.4013417Z 
+2026-10-23T21:46:48.4014120Z #7 [1/6] FROM docker.io/library/node:24-bookworm-slim@sha256:55fb5f5a527ea2c5c4a95f963e48ef90aa38c7b346054fdc8ee9957a2b55d205
+2026-10-23T21:46:48.4014899Z #7 extracting sha256:f2b8e65232e105b573ea2f37c4a2ec56bcf0b63687ae2bbe329cf4252f30bc1d 0.0s done
+2026-10-23T21:46:48.4015463Z #7 extracting sha256:6d793208473aa7d9ccc02b9de99aee40e4d6e73065d5307d076fad3ba554d580 done
+2026-10-23T21:46:48.4015823Z #7 DONE 1.8s
+2026-10-23T21:46:48.4015926Z 
+2026-10-23T21:46:48.4016057Z #8 [2/6] WORKDIR /app
+2026-10-23T21:46:50.1807482Z #8 DONE 1.9s
+2026-10-23T21:46:50.3495320Z 
+2026-10-23T21:46:50.3496515Z #9 [3/6] COPY package*.json ./
+2026-10-23T21:46:50.3497089Z #9 DONE 0.0s
+2026-10-23T21:46:50.3497237Z 
+2026-10-23T21:46:50.3497403Z #10 [4/6] RUN npm ci
+2026-10-23T21:46:51.2712564Z #10 1.072 
+2026-10-23T21:46:51.2713421Z #10 1.072 added 25 packages, and audited 26 packages in 925ms
+2026-10-23T21:46:51.2714140Z #10 1.072 
+2026-10-23T21:46:51.4239819Z #10 1.072 3 packages are looking for funding
+2026-10-23T21:46:51.4240405Z #10 1.072   run `npm fund` for details
+2026-10-23T21:46:51.4240629Z #10 1.073 
+2026-10-23T21:46:51.4240881Z #10 1.073 found 0 vulnerabilities
+2026-10-23T21:46:51.4241324Z #10 1.073 npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+2026-10-23T21:46:51.4241846Z #10 1.073 npm warn install-scripts   esbuild@0.25.12 (postinstall: node install.js)
+2026-10-23T21:46:51.4242219Z #10 1.073 npm warn install-scripts
+2026-10-23T21:46:51.4242675Z #10 1.073 npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-10-23T21:46:51.4243095Z #10 1.075 npm notice
+2026-10-23T21:46:51.4243413Z #10 1.075 npm notice New major version of npm available! 11.19.1 -> 12.2.1
+2026-10-23T21:46:51.4243859Z #10 1.075 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+2026-10-23T21:46:51.4244290Z #10 1.075 npm notice To update run: npm install -g npm@12.2.1
+2026-10-23T21:46:51.4244556Z #10 1.075 npm notice
+2026-10-23T21:46:51.7956577Z #10 DONE 1.6s
+2026-10-23T21:46:51.9678232Z 
+2026-10-23T21:46:51.9679313Z #11 [5/6] COPY . .
+2026-10-23T21:46:51.9679809Z #11 DONE 0.0s
+2026-10-23T21:46:51.9680186Z 
+2026-10-23T21:46:51.9680318Z #12 [6/6] RUN npm run build
+2026-10-23T21:46:51.9718204Z #12 0.154 
+2026-10-23T21:46:51.9718673Z #12 0.154 > buildzn-invoice-to-cash-agent@0.1.0 build
+2026-10-23T21:46:51.9719138Z #12 0.154 > tsc --noEmit
+2026-10-23T21:46:51.9719431Z #12 0.154 
+2026-10-23T21:46:52.6753536Z #12 DONE 0.9s
+2026-10-23T21:46:52.8280333Z 
+2026-10-23T21:46:52.8281100Z #13 exporting to image
+2026-10-23T21:46:52.8281612Z #13 exporting layers
+2026-10-23T21:46:54.9315488Z #13 exporting layers 2.3s done
+2026-10-23T21:46:55.1097820Z #13 exporting manifest sha256:88dc2b7b5e19454a3c81b79f210b471434e3218d0fdc5c08470eb644beceab5d done
+2026-10-23T21:46:55.1098695Z #13 exporting config sha256:3c4949d3001c3c9454e83c34a58bf3c1d5420fb33811b50092261eafef1c5c7f done
+2026-10-23T21:46:55.1099694Z #13 exporting attestation manifest sha256:275a15b58969bddd39245960ea9b69a43ebce18c29ef0b0a9543b07185406dbf done
+2026-10-23T21:46:55.1100488Z #13 exporting manifest list sha256:65538524512ec39c35154fa1c122b6fa2fea8066239964dbabb61fc27e6ee21d done
+2026-10-23T21:46:55.1101332Z #13 naming to docker.io/library/invoice-to-cash-agent-app:latest done
+2026-10-23T21:46:55.1101989Z #13 unpacking to docker.io/library/invoice-to-cash-agent-app:latest
+2026-10-23T21:46:55.2840181Z #13 unpacking to docker.io/library/invoice-to-cash-agent-app:latest 0.3s done
+2026-10-23T21:46:55.3503409Z #13 DONE 2.6s
+2026-10-23T21:46:55.3503973Z  Image invoice-to-cash-agent-app Built 
+2026-10-23T21:46:55.3504328Z 
+2026-10-23T21:46:55.3504586Z #14 resolving provenance for metadata file
+2026-10-23T21:46:55.3505030Z #14 DONE 0.0s
+2026-10-23T21:46:55.3518572Z  Network invoice-to-cash-agent_default Creating 
+2026-10-23T21:46:55.3703637Z  Network invoice-to-cash-agent_default Created 
+2026-10-23T21:46:55.3706225Z  Volume invoice-to-cash-agent_pgdata Creating 
+2026-10-23T21:46:55.3717432Z  Volume invoice-to-cash-agent_pgdata Created 
+2026-10-23T21:46:55.3723631Z  Container invoice-to-cash-agent-db-1 Creating 
+2026-10-23T21:46:55.9535779Z  Container invoice-to-cash-agent-db-1 Created 
+2026-10-23T21:46:55.9536866Z  Container invoice-to-cash-agent-app-1 Creating 
+2026-10-23T21:46:55.9780373Z  Container invoice-to-cash-agent-app-1 Created 
+2026-10-23T21:46:55.9946944Z Attaching to app-1, db-1
+2026-10-23T21:46:56.0121620Z  Container invoice-to-cash-agent-db-1 Starting 
+2026-10-23T21:46:56.1003142Z  Container invoice-to-cash-agent-db-1 Started 
+2026-10-23T21:46:56.1003679Z  Container invoice-to-cash-agent-db-1 Waiting 
+2026-10-23T21:46:56.1200433Z db-1  | The files belonging to this database system will be owned by user "postgres".
+2026-10-23T21:46:56.1201031Z db-1  | This user must also own the server process.
+2026-10-23T21:46:56.1201294Z db-1  | 
+2026-10-23T21:46:56.1201652Z db-1  | The database cluster will be initialized with locale "en_US.utf8".
+2026-10-23T21:46:56.1202051Z db-1  | The default database encoding has accordingly been set to "UTF8".
+2026-10-23T21:46:56.1202438Z db-1  | The default text search configuration will be set to "english".
+2026-10-23T21:46:56.1202763Z db-1  | 
+2026-10-23T21:46:56.1202997Z db-1  | Data page checksums are disabled.
+2026-10-23T21:46:56.1203269Z db-1  | 
+2026-10-23T21:46:56.1203595Z db-1  | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2026-10-23T21:46:56.1203948Z db-1  | creating subdirectories ... ok
+2026-10-23T21:46:56.1204324Z db-1  | selecting dynamic shared memory implementation ... posix
+2026-10-23T21:46:56.1289061Z db-1  | selecting default max_connections ... 100
+2026-10-23T21:46:56.1397097Z db-1  | selecting default shared_buffers ... 128MB
+2026-10-23T21:46:56.1486616Z db-1  | selecting default time zone ... Etc/UTC
+2026-10-23T21:46:56.1490283Z db-1  | creating configuration files ... ok
+2026-10-23T21:46:56.2101482Z db-1  | running bootstrap script ... ok
+2026-10-23T21:46:56.3955940Z db-1  | performing post-bootstrap initialization ... ok
+2026-10-23T21:46:56.7908094Z db-1  | initdb: warning: enabling "trust" authentication for local connections
+2026-10-23T21:46:56.7908889Z db-1  | initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+2026-10-23T21:46:56.7909400Z db-1  | syncing data to disk ... ok
+2026-10-23T21:46:56.7909646Z db-1  | 
+2026-10-23T21:46:56.7909971Z db-1  | 
+2026-10-23T21:46:56.7910316Z db-1  | Success. You can now start the database server using:
+2026-10-23T21:46:56.7910611Z db-1  | 
+2026-10-23T21:46:56.7910931Z db-1  |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+2026-10-23T21:46:56.7911208Z db-1  | 
+2026-10-23T21:46:56.8136903Z db-1  | waiting for server to start....2026-10-23 21:46:56.813 UTC [48] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-10-23T21:46:56.8142366Z db-1  | 2026-10-23 21:46:56.814 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-23T21:46:56.8164655Z db-1  | 2026-10-23 21:46:56.816 UTC [51] LOG:  database system was shut down at 2026-10-23 21:46:56 UTC
+2026-10-23T21:46:56.8197480Z db-1  | 2026-10-23 21:46:56.819 UTC [48] LOG:  database system is ready to accept connections
+2026-10-23T21:46:56.9027129Z db-1  |  done
+2026-10-23T21:46:56.9027460Z db-1  | server started
+2026-10-23T21:46:56.9788992Z db-1  | CREATE DATABASE
+2026-10-23T21:46:56.9791059Z db-1  | 
+2026-10-23T21:46:56.9793180Z db-1  | 
+2026-10-23T21:46:56.9793829Z db-1  | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2026-10-23T21:46:56.9794378Z db-1  | 
+2026-10-23T21:46:56.9799742Z db-1  | waiting for server to shut down...2026-10-23 21:46:56.979 UTC [48] LOG:  received fast shutdown request
+2026-10-23T21:46:56.9819003Z db-1  | .2026-10-23 21:46:56.980 UTC [48] LOG:  aborting any active transactions
+2026-10-23T21:46:56.9820133Z db-1  | 2026-10-23 21:46:56.981 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+2026-10-23T21:46:56.9821017Z db-1  | 2026-10-23 21:46:56.981 UTC [49] LOG:  shutting down
+2026-10-23T21:46:56.9825042Z db-1  | 2026-10-23 21:46:56.982 UTC [49] LOG:  checkpoint starting: shutdown immediate
+2026-10-23T21:46:57.0568774Z db-1  | 2026-10-23 21:46:57.056 UTC [49] LOG:  checkpoint complete: wrote 926 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.068 s, sync=0.006 s, total=0.075 s; sync files=301, longest=0.005 s, average=0.001 s; distance=4273 kB, estimate=4273 kB; lsn=0/191F0F0, redo lsn=0/191F0F0
+2026-10-23T21:46:57.0601361Z db-1  | 2026-10-23 21:46:57.059 UTC [48] LOG:  database system is shut down
+2026-10-23T21:46:57.0800415Z db-1  |  done
+2026-10-23T21:46:57.0800695Z db-1  | server stopped
+2026-10-23T21:46:57.0807276Z db-1  | 
+2026-10-23T21:46:57.0807804Z db-1  | PostgreSQL init process complete; ready for start up.
+2026-10-23T21:46:57.0808262Z db-1  | 
+2026-10-23T21:46:57.0936931Z db-1  | 2026-10-23 21:46:57.093 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-10-23T21:46:57.0937961Z db-1  | 2026-10-23 21:46:57.093 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-10-23T21:46:57.0938800Z db-1  | 2026-10-23 21:46:57.093 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-10-23T21:46:57.0949056Z db-1  | 2026-10-23 21:46:57.094 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-23T21:46:57.0968843Z db-1  | 2026-10-23 21:46:57.096 UTC [64] LOG:  database system was shut down at 2026-10-23 21:46:57 UTC
+2026-10-23T21:46:57.1005176Z db-1  | 2026-10-23 21:46:57.099 UTC [1] LOG:  database system is ready to accept connections
+2026-10-23T21:46:58.6009555Z  Container invoice-to-cash-agent-db-1 Healthy 
+2026-10-23T21:46:58.6010289Z  Container invoice-to-cash-agent-app-1 Starting 
+2026-10-23T21:46:58.6853381Z  Container invoice-to-cash-agent-app-1 Started 
+2026-10-23T21:46:58.7531143Z app-1  | 
+2026-10-23T21:46:58.7531503Z app-1  | > buildzn-invoice-to-cash-agent@0.1.0 demo
+2026-10-23T21:46:58.7531901Z app-1  | > node --import tsx src/demo.ts
+2026-10-23T21:46:58.7532259Z app-1  | 
+2026-10-23T21:46:58.9675314Z app-1  | All data synthetic. Transport: transactional demo mailbox.
+2026-10-23T21:46:58.9680675Z app-1  | Invoice 10000 USD minor units. Partial payment 4000. Remaining: 6000
+2026-10-23T21:46:58.9735080Z app-1  | Dry run: dry-run
+2026-10-23T21:46:58.9751571Z app-1  | Approved delivery: delivered
+2026-10-23T21:46:58.9767978Z app-1  | Retry: delivered
+2026-10-23T21:46:58.9772195Z app-1  | Mailbox records: 1
+2026-10-23T21:46:58.9777116Z app-1  | Persisted steps: [
+2026-10-23T21:46:58.9777745Z app-1  |   { job: 'reminder:demo-invoice', name: 'delivered' },
+2026-10-23T21:46:58.9778356Z app-1  |   { job: 'reminder:demo-invoice', name: 'drafted' },
+2026-10-23T21:46:58.9778846Z app-1  |   { job: 'reminder:demo-invoice', name: 'escalated' }
+2026-10-23T21:46:58.9779234Z app-1  | ]
+2026-10-23T21:46:59.0534060Z  Compose Stopping Aborting on container exit...
+2026-10-23T21:46:59.0534555Z 
+2026-10-23T21:46:59.0535040Z [Kapp-1 exited with code 0
+2026-10-23T21:46:59.0699116Z  Container invoice-to-cash-agent-app-1 Stopping 
+2026-10-23T21:46:59.0706205Z  Container invoice-to-cash-agent-app-1 Stopped 
+2026-10-23T21:46:59.0706715Z  Container invoice-to-cash-agent-db-1 Stopping 
+2026-10-23T21:46:59.0771658Z db-1   | 2026-10-23 21:46:59.076 UTC [1] LOG:  received fast shutdown request
+2026-10-23T21:46:59.0775358Z db-1   | 2026-10-23 21:46:59.077 UTC [1] LOG:  aborting any active transactions
+2026-10-23T21:46:59.0794897Z db-1   | 2026-10-23 21:46:59.079 UTC [1] LOG:  background worker "logical replication launcher" (PID 67) exited with exit code 1
+2026-10-23T21:46:59.0799459Z db-1   | 2026-10-23 21:46:59.079 UTC [62] LOG:  shutting down
+2026-10-23T21:46:59.0803593Z db-1   | 2026-10-23 21:46:59.080 UTC [62] LOG:  checkpoint starting: shutdown immediate
+2026-10-23T21:46:59.0843354Z db-1   | 2026-10-23 21:46:59.084 UTC [62] LOG:  checkpoint complete: wrote 111 buffers (0.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.005 s; sync files=80, longest=0.001 s, average=0.001 s; distance=386 kB, estimate=386 kB; lsn=0/197F9B8, redo lsn=0/197F9B8
+2026-10-23T21:46:59.0876749Z db-1   | 2026-10-23 21:46:59.087 UTC [1] LOG:  database system is shut down
+2026-10-23T21:46:59.1644742Z  Container invoice-to-cash-agent-db-1 Stopped 
+2026-10-23T21:46:59.1649985Z 
+2026-10-23T21:46:59.1650995Z [Kdb-1 exited with code 0
+2026-10-23T21:46:59.2200914Z  Container invoice-to-cash-agent-app-1 Stopping 
+2026-10-23T21:46:59.2203982Z  Container invoice-to-cash-agent-app-1 Stopped 
+2026-10-23T21:46:59.2204884Z  Container invoice-to-cash-agent-app-1 Removing 
+2026-10-23T21:46:59.2323725Z  Container invoice-to-cash-agent-app-1 Removed 
+2026-10-23T21:46:59.2324185Z  Container invoice-to-cash-agent-db-1 Stopping 
+2026-10-23T21:46:59.2327233Z  Container invoice-to-cash-agent-db-1 Stopped 
+2026-10-23T21:46:59.2327806Z  Container invoice-to-cash-agent-db-1 Removing 
+2026-10-23T21:46:59.2584045Z  Container invoice-to-cash-agent-db-1 Removed 
+2026-10-23T21:46:59.2589251Z  Volume invoice-to-cash-agent_pgdata Removing 
+2026-10-23T21:46:59.2590321Z  Network invoice-to-cash-agent_default Removing 
+2026-10-23T21:46:59.2987933Z  Network invoice-to-cash-agent_default Removed 
+2026-10-23T21:46:59.5813831Z  Volume invoice-to-cash-agent_pgdata Removed 
+2026-10-23T21:46:59.5900985Z Post job cleanup.
+2026-10-23T21:46:59.6728936Z (node:3994) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-23T21:46:59.6729819Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-23T21:46:59.6868897Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/invoice-to-cash-agent/invoice-to-cash-agent --files-from manifest.txt --use-compress-program zstdmt
+2026-10-23T21:46:59.8892400Z (node:3994) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-23T21:47:00.4667340Z Sent 18567037 of 18567037 (100.0%), 30.3 MBs/sec
+2026-10-23T21:47:00.6610369Z Cache saved with the key: node-cache-Linux-x64-npm-4711fca2932ff2548450b1f1c308f25a46d11c0f781ee31894f15d8e5a4e38b0
+2026-10-23T21:47:00.6728702Z Post job cleanup.
+2026-10-23T21:47:00.7322112Z [command]/usr/bin/git version
+2026-10-23T21:47:00.7348104Z git version 2.55.0
+2026-10-23T21:47:00.7372024Z Temporarily overriding HOME='/home/runner/work/_temp/41b502bf-fe77-4170-926f-eb1c72200988' before making global git config changes
+2026-10-23T21:47:00.7373246Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-23T21:47:00.7376411Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/invoice-to-cash-agent/invoice-to-cash-agent
+2026-10-23T21:47:00.7404345Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-23T21:47:00.7428716Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-23T21:47:00.7610428Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-23T21:47:00.7625421Z http.https://github.com/.extraheader
+2026-10-23T21:47:00.7632650Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-23T21:47:00.7657126Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-23T21:47:00.7834292Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-23T21:47:00.7856282Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-23T21:47:00.8103642Z Print service container logs: 7ad8597c99154db98d872c1af7a58309_postgres16_1223c3
+2026-10-23T21:47:00.8106915Z ##[command]/usr/bin/docker logs --details e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba
+2026-10-23T21:47:00.8211298Z  The files belonging to this database system will be owned by user "postgres".
+2026-10-23T21:47:00.8211865Z  This user must also own the server process.
+2026-10-23T21:47:00.8212301Z  
+2026-10-23T21:47:00.8212663Z  The database cluster will be initialized with locale "en_US.utf8".
+2026-10-23T21:47:00.8213119Z  The default database encoding has accordingly been set to "UTF8".
+2026-10-23T21:47:00.8213572Z  The default text search configuration will be set to "english".
+2026-10-23T21:47:00.8213900Z  
+2026-10-23T21:47:00.8214159Z  Data page checksums are disabled.
+2026-10-23T21:47:00.8214414Z  
+2026-10-23T21:47:00.8214738Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2026-10-23T21:47:00.8215236Z  creating subdirectories ... ok
+2026-10-23T21:47:00.8215603Z  selecting dynamic shared memory implementation ... posix
+2026-10-23T21:47:00.8215914Z  selecting default max_connections ... 100
+2026-10-23T21:47:00.8216186Z  selecting default shared_buffers ... 128MB
+2026-10-23T21:47:00.8216571Z  selecting default time zone ... Etc/UTC
+2026-10-23T21:47:00.8216827Z  creating configuration files ... ok
+2026-10-23T21:47:00.8217171Z  running bootstrap script ... ok
+2026-10-23T21:47:00.8217483Z  performing post-bootstrap initialization ... ok
+2026-10-23T21:47:00.8217787Z  syncing data to disk ... ok
+2026-10-23T21:47:00.8218086Z  
+2026-10-23T21:47:00.8218315Z  
+2026-10-23T21:47:00.8218555Z  Success. You can now start the database server using:
+2026-10-23T21:47:00.8218877Z  
+2026-10-23T21:47:00.8219173Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2026-10-23T21:47:00.8219500Z  
+2026-10-23T21:47:00.8220199Z  waiting for server to start....2026-10-23 21:46:34.101 UTC [49] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-10-23T21:47:00.8220880Z  2026-10-23 21:46:34.101 UTC [49] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-23T21:47:00.8221303Z  2026-10-23 21:46:34.104 UTC [52] LOG:  database system was shut down at 2026-10-23 21:46:33 UTC
+2026-10-23T21:47:00.8221740Z  2026-10-23 21:46:34.109 UTC [49] LOG:  database system is ready to accept connections
+2026-10-23T21:47:00.8222077Z   done
+2026-10-23T21:47:00.8222290Z  server started
+2026-10-23T21:47:00.8222503Z  CREATE DATABASE
+2026-10-23T21:47:00.8222754Z  
+2026-10-23T21:47:00.8222947Z  
+2026-10-23T21:47:00.8223235Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2026-10-23T21:47:00.8224379Z  initdb: warning: enabling "trust" authentication for local connections
+2026-10-23T21:47:00.8224901Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+2026-10-23T21:47:00.8225630Z  2026-10-23 21:46:34.476 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-10-23T21:47:00.8226362Z  2026-10-23 21:46:34.477 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-10-23T21:47:00.8226729Z  2026-10-23 21:46:34.477 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-10-23T21:47:00.8227160Z  2026-10-23 21:46:34.478 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-23T21:47:00.8227636Z  2026-10-23 21:46:34.480 UTC [65] LOG:  database system was shut down at 2026-10-23 21:46:34 UTC
+2026-10-23T21:47:00.8228049Z  2026-10-23 21:46:34.483 UTC [1] LOG:  database system is ready to accept connections
+2026-10-23T21:47:00.8228454Z  2026-10-23 21:46:41.242 UTC [99] LOG:  unexpected EOF on client connection with an open transaction
+2026-10-23T21:47:00.8229018Z  2026-10-23 21:46:41.415 UTC [101] LOG:  unexpected EOF on client connection with an open transaction
+2026-10-23T21:47:00.8229391Z  
+2026-10-23T21:47:00.8229702Z  waiting for server to shut down...2026-10-23 21:46:34.263 UTC [49] LOG:  received fast shutdown request
+2026-10-23T21:47:00.8230347Z  .2026-10-23 21:46:34.263 UTC [49] LOG:  aborting any active transactions
+2026-10-23T21:47:00.8230787Z  2026-10-23 21:46:34.265 UTC [49] LOG:  background worker "logical replication launcher" (PID 55) exited with exit code 1
+2026-10-23T21:47:00.8231196Z  2026-10-23 21:46:34.265 UTC [50] LOG:  shutting down
+2026-10-23T21:47:00.8231585Z  2026-10-23 21:46:34.266 UTC [50] LOG:  checkpoint starting: shutdown immediate
+2026-10-23T21:47:00.8232328Z  2026-10-23 21:46:34.364 UTC [50] LOG:  checkpoint complete: wrote 926 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.075 s, sync=0.022 s, total=0.099 s; sync files=301, longest=0.021 s, average=0.001 s; distance=4273 kB, estimate=4273 kB; lsn=0/191F0F0, redo lsn=0/191F0F0
+2026-10-23T21:47:00.8233108Z  2026-10-23 21:46:34.369 UTC [49] LOG:  database system is shut down
+2026-10-23T21:47:00.8233393Z   done
+2026-10-23T21:47:00.8233601Z  server stopped
+2026-10-23T21:47:00.8233852Z  
+2026-10-23T21:47:00.8234082Z  PostgreSQL init process complete; ready for start up.
+2026-10-23T21:47:00.8234350Z  
+2026-10-23T21:47:00.8244562Z Stop and remove container: 7ad8597c99154db98d872c1af7a58309_postgres16_1223c3
+2026-10-23T21:47:00.8248325Z ##[command]/usr/bin/docker rm --force e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba
+2026-10-23T21:47:00.9317088Z e82fc236953eced30e6de970f45691464119201e03b98370a53b74216615a0ba
+2026-10-23T21:47:00.9333486Z Remove container network: github_network_c0873bab8a8448499e41f92dac1f8a24
+2026-10-23T21:47:00.9336369Z ##[command]/usr/bin/docker network rm github_network_c0873bab8a8448499e41f92dac1f8a24
+2026-10-23T21:47:00.9863937Z github_network_c0873bab8a8448499e41f92dac1f8a24
+2026-10-23T21:47:00.9927274Z Cleaning up orphan processes
+2026-10-23T21:47:01.0360099Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

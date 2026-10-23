@@ -1,15 +1,9 @@
-# BuildZn portfolio report: project 1
+# BuildZn portfolio report
 
-**Work in progress. Local implementation exists; required public GitHub and native Docker/CI gates are blocked.**
+Built and verified as a synthetic portfolio showcase. Public source: https://github.com/umair24171/invoice-to-cash-agent. [Successful CI, native database tests and Docker demo](https://github.com/umair24171/invoice-to-cash-agent/actions/runs/40029159866), code `d3e973044a42f6f374a0f7a7882b49a0b5b1f09b`.
 
-Built: Synthetic invoice reconciliation with durable PostgreSQL checkpoints and approval-gated reminders.
+39 distinct tests: native PostgreSQL 38 passed, 1 environment-specific skipped; embedded complement 37 passed, 2 environment-specific skipped; zero failed. Every distinct case passed in at least one appropriate environment. Dependency install, formatting, TypeScript, configured full-history secret scan and fresh-checkout Docker demo passed. Real output is in docs/native-ci-output.txt and docs/demo-output.md. No live Claude calls, real customer data, messaging or hosting.
 
-Measured host results: 39 tests discovered, 37 passed, 0 failed, 2 skipped. TypeScript and embedded PostgreSQL demo passed. All data synthetic. Detailed evidence and limitations are in docs/TEST-REPORT.md, docs/test-output.txt and docs/demo-output.md. Fresh local git-clone evidence is recorded separately when run. It is not a native Docker check.
+Implementation scope, data model and edge-case contract are in docs/PLAN.md. Policy/identity/transport assumptions and MIT license choice are in docs/ASSUMPTIONS.md. README describes architecture and the remaining production limitations. Initial authoring-host and publishing blockers were resolved by signed-in GitHub creation, narrowly scoped connector access and hosted Actions. No credential was created or printed.
 
-Repository link: unavailable. No new remote was created or pushed. Proposed owner/name: `umair24171/invoice-to-cash-agent`. Description and topics are prepared in docs/PUBLISHING.md. Local git history and a portable bundle are included in the delivery archive.
-
-Blocked: repository creation is not exposed by the authenticated connector; no GitHub CLI token/helper is available; integration discovery found no additional route. Docker/native Postgres installation is blocked by host restrictions. Consequently no GitHub Actions result, native service result, Docker clean-clone result, portfolio site change or BuildZn PR is claimed. Existing site source [umair24171/dev_umair](https://github.com/umair24171/dev_umair) was inspected read-only and remains unchanged.
-
-Assumptions: CLI showcase, synthetic-only fixtures, trusted local operator/identity, mocked external services, no paid Claude calls or hosting, MIT license. Project-specific policy and data assumptions are in docs/ASSUMPTIONS.md. No real credentials or customer data were intentionally included. Final configured secret/history scan output is in docs/scan-output.txt.
-
-Resume: read PROGRESS.md, clear docs/BLOCKERS.md, create a new public repo, push local commits, run and inspect CI plus the Docker clean-clone path. Only after all four projects meet those gates, add portfolio pages and open the BuildZn PR containing the combined report. Do not merge or deploy without approval.
+BuildZn site portfolio pages and combined PR report follow after all four projects meet their gates. No merge or deployment is authorized.

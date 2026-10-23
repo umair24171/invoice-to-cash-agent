@@ -1,6 +1,5 @@
-npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
 
 > buildzn-invoice-to-cash-agent@0.1.0 scan
 > node scripts/scan.mjs
 
-Scanned 34 tracked files and 57 historical blobs: no configured credential patterns or env files. Synthetic fixtures reviewed separately. This pattern scan is not proof of absence.
+Scanned 35 tracked files and 66 historical blobs: no configured credential patterns or env files. Synthetic fixtures reviewed separately. This pattern scan is not proof of absence.
