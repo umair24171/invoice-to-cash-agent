@@ -11,5 +11,6 @@ Retry: delivered
 Mailbox records: 1
 Persisted steps: [
   { job: 'reminder:demo-invoice', name: 'delivered' },
-  { job: 'reminder:demo-invoice', name: 'drafted' }
+  { job: 'reminder:demo-invoice', name: 'drafted' },
+  { job: 'reminder:demo-invoice', name: 'escalated' }
 ]

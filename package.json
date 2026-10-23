@@ -10,7 +10,9 @@
     "build": "tsc --noEmit",
     "test": "node --import tsx --test --test-concurrency=1 tests/*.test.ts",
     "demo": "node --import tsx src/demo.ts",
-    "scan": "node scripts/scan.mjs"
+    "scan": "node scripts/scan.mjs",
+    "format:check": "prettier --check src tests scripts *.json *.yml .github/workflows/*.yml *.md docs/*.md",
+    "worker": "node --import tsx src/worker.ts"
   },
   "dependencies": {
     "pg": "8.16.3"
@@ -19,6 +21,7 @@
     "@electric-sql/pglite": "0.3.14",
     "@types/node": "24.10.1",
     "@types/pg": "8.15.6",
+    "prettier": "3.6.2",
     "tsx": "4.20.6",
     "typescript": "5.9.3"
   }

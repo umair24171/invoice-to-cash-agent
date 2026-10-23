@@ -1,0 +1,21 @@
+src/agent.ts 134ms
+src/db.ts 16ms
+src/demo.ts 5ms
+src/provider.ts 10ms
+src/schema.ts 3ms
+src/worker.ts 4ms
+tests/agent.test.ts 27ms
+tests/crash-worker.ts 3ms
+tests/durability.test.ts 11ms
+scripts/scan.mjs 28ms
+package-lock.json 8ms (unchanged)
+package.json 1ms (unchanged)
+tsconfig.json 1ms
+docker-compose.yml 30ms (unchanged)
+.github/workflows/ci.yml 10ms
+PROGRESS.md 29ms (unchanged)
+README.md 11ms
+docs/ASSUMPTIONS.md 4ms (unchanged)
+docs/BLOCKERS.md 5ms (unchanged)
+docs/demo-output.md 1ms (unchanged)
+docs/PLAN.md 6ms

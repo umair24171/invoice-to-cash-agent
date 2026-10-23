@@ -1,15 +1,19 @@
 # Invoice to cash agent plan
 
 ## Scope
+
 Reconcile explicit invoice references against synthetic bank lines, conserve amounts, show exceptions, draft and approve reminders, then dispatch through a transactional local mailbox. Persist reminders and step checkpoints in PostgreSQL. Support retries and crashes without duplicate allocation or delivery.
 
 ## Data model
+
 Customers with late-payment history; invoices with due date and dispute state; bank lines with immutable source IDs; allocations joining payments and invoices; reconciliation review records; durable jobs with run time; approved outbox drafts; transactional mailbox; step events. Unique keys protect imports, allocations, job creation and delivery.
 
 ## Tools
+
 TypeScript CLI, pg, PostgreSQL 16, Docker Compose, Claude Messages HTTP adapter behind a provider interface, deterministic mock, Node test runner, PGlite for supplemental host tests, GitHub Actions PostgreSQL service. No paid calls in demo or tests.
 
 ## Edge cases and test contract
+
 1. Partial payment leaves balance and reminder.
 2. Overpayment preserves unapplied remainder.
 3. One payment covers multiple explicitly referenced invoices.
