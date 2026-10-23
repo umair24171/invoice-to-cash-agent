@@ -1,6 +1,6 @@
 # Recorded demo output
 
-All data synthetic. Cloud command: `TEST_PGLITE=1 npm run demo`. This is a real embedded PostgreSQL run, not native Docker evidence.
+All data synthetic. Actual command: `TEST_PGLITE=1 npm run demo`. Embedded PostgreSQL. Native Docker demo remains unverified.
 
 ```text
 npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
@@ -16,6 +16,7 @@ Retry: delivered
 Mailbox records: 1
 Persisted steps: [
   { job: 'reminder:demo-invoice', name: 'delivered' },
-  { job: 'reminder:demo-invoice', name: 'drafted' }
+  { job: 'reminder:demo-invoice', name: 'drafted' },
+  { job: 'reminder:demo-invoice', name: 'escalated' }
 ]
 ```
