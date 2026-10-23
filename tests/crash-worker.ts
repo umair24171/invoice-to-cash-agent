@@ -1,0 +1,1 @@
+import {connect} from '../src/db.js';const db=await connect();await db.tx(async q=>{await q.query("INSERT INTO customers(id) VALUES('killed-worker')");process.send?.({ready:true});await new Promise(()=>{});});

@@ -1,0 +1,5 @@
+
+> buildzn-invoice-to-cash-agent@0.1.0 scan
+> node scripts/scan.mjs
+
+Scanned 25 tracked files: no configured credential patterns or env files. Synthetic fixtures reviewed separately. This pattern scan is not proof of absence.

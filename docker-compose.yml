@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: portfolio
+      POSTGRES_PASSWORD: synthetic-local-only
+      POSTGRES_DB: portfolio
+    ports: ["127.0.0.1:5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portfolio"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  app:
+    build: .
+    environment:
+      DATABASE_URL: postgres://portfolio:synthetic-local-only@db:5432/portfolio
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["npm", "run", "demo"]
+volumes:
+  pgdata:

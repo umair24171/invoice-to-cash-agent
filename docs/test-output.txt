@@ -1,0 +1,51 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> buildzn-invoice-to-cash-agent@0.1.0 test
+> node --import tsx --test --test-concurrency=1 tests/*.test.ts
+
+✔ 01 partial payment leaves exact balance and reminder (1193.561965ms)
+✔ 02 overpayment is conserved as unapplied review (25.375795ms)
+✔ 03 one line covers several invoices in explicit reference order (29.238223ms)
+✔ 04 several payments settle one invoice (32.154394ms)
+✔ 05 duplicate statement ID allocates once (26.686925ms)
+✔ 05 conflicting bank ID rejected (23.083107ms)
+✔ 05 same content under different source ID quarantined (41.501656ms)
+✔ 06 duplicate invoice imports once and conflicting amount rejected (25.587445ms)
+✔ 07 references [] allocate nothing (30.347618ms)
+✔ 07 references ["WRONG"] allocate nothing (19.921431ms)
+✔ 07 references ["INV-1","WRONG"] allocate nothing (45.483063ms)
+✔ 07 reference owned by another customer allocates nothing (56.027372ms)
+✔ 07 SQL injection is treated as a literal reference (52.005083ms)
+✔ 08 fees and rounding flagged without hidden writeoff (40.054892ms)
+✔ 09 currency mismatch refuses allocation (66.137415ms)
+✔ 10 dispute after approval suppresses send (48.937836ms)
+✔ 10 dispute before drafting suppresses workflow (28.424486ms)
+✔ 11 reconcile crash rolls back allocation and checkpoint then resumes (41.479804ms)
+✔ 11 dispatch crash rolls back mailbox and retries safely (44.556825ms)
+✔ 12 dispatch and worker retries do not duplicate reminders (47.235201ms)
+✔ 12 concurrent dispatchers serialize delivery (44.154889ms)
+✔ 13 approval required; dry run has no mailbox effect (27.478494ms)
+✔ 13 full settlement blocks previously approved reminder (34.012516ms)
+✔ 14 unsafe amount 0 rejected (10.10756ms)
+✔ 14 unsafe amount -1 rejected (10.990021ms)
+✔ 14 unsafe amount 1.5 rejected (12.108879ms)
+✔ 14 unsafe amount NaN rejected (11.071504ms)
+✔ 14 unsafe amount Infinity rejected (10.774246ms)
+✔ 14 unsafe amount 9007199254740992 rejected (10.692072ms)
+✔ 14 provider failure leaves pending retry with no draft or approval (17.205178ms)
+✔ 14 Claude configuration fails closed without credentials (10.696888ms)
+✔ 15 editing a draft invalidates approval (20.077452ms)
+✔ 15 customer history escalates draft; day 14 is not early (19.179577ms)
+✔ 15 partial payment after approval invalidates stale amount (28.482363ms)
+✔ 16 reconnect preserves scheduled day-14 job (14.396912ms)
+✔ 12 concurrent payments never overallocate an invoice (24.903483ms)
+✔ 16 disk-backed PostgreSQL survives close and reopen with day-14 job (1814.445322ms)
+﹣ 16 native PostgreSQL rolls back a SIGKILLed child transaction (0.323878ms) # SKIP
+ℹ tests 38
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 4723.248043

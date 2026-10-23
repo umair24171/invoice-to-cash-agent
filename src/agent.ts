@@ -18,6 +18,7 @@ export class InvoiceAgent {
  async payment(p:Payment){amount(p.amount);code(p.currency);[p.id,p.customer,...p.refs].forEach(id);if(new Set(p.refs).size!==p.refs.length)throw new Error('Repeated reference');
  const fingerprint=createHash('sha256').update(JSON.stringify([p.customer,p.amount,p.currency,[...p.refs].sort()])).digest('hex');
  return this.db.tx(async q=>{
+  await q.query('SELECT id FROM customers WHERE id=$1 FOR UPDATE',[p.customer]);
   await q.query('INSERT INTO bank_lines(id,customer,amount,currency,refs,fingerprint) VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT DO NOTHING',[p.id,p.customer,p.amount,p.currency,JSON.stringify(p.refs),fingerprint]);
   const [r]=await q.query('SELECT * FROM bank_lines WHERE id=$1',[p.id]);
   if(!r||r.fingerprint!==fingerprint)throw new Error('Conflicting duplicate statement ID');

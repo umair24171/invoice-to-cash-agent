@@ -1,0 +1,34 @@
+name: CI
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: portfolio
+          POSTGRES_PASSWORD: synthetic-local-only
+          POSTGRES_DB: portfolio
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U portfolio"
+          --health-interval 2s --health-timeout 2s --health-retries 30
+    env:
+      DATABASE_URL: postgres://portfolio:synthetic-local-only@localhost:5432/portfolio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: npm run scan
+      - run: npm run demo
+      - name: Verify Docker demo from clean working tree
+        run: |
+          unset DATABASE_URL
+          docker compose up --build --abort-on-container-exit --exit-code-from app
+          docker compose down -v
