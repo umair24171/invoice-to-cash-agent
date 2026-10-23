@@ -6,6 +6,6 @@ Measured: 39 distinct tests. Native 38 passed/1 environment-specific skipped; em
 
 Running: no background worker intentionally left running.
 
-Next: include the verified project in the BuildZn portfolio PR after all four projects pass their gates. No deployment or merge. Keep production/model limitations explicit.
+Portfolio entry: https://github.com/umair24171/dev_umair/pull/24, open and unmerged. The PR description tracks website-specific validation. All four agent project gates passed before the portfolio changes began. Next: user review; do not merge or deploy. Keep production/model limitations explicit.
 
 First native run exposed Node IPC message events carrying an optional send-handle argument. The harness now asserts the readiness payload; actual SIGKILL rollback/resume and single-delivery expectations remain and passed. Original host-only limitations were resolved using scoped GitHub access and hosted Actions, with no new credential or paid service. Original local checkpoint hashes are preserved in remote commit messages.
