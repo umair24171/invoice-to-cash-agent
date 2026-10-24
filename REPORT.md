@@ -6,7 +6,7 @@ Built and verified as a synthetic portfolio showcase. Public source: https://git
 
 Implementation scope, data model and edge-case contract are in docs/PLAN.md. Policy/identity/transport assumptions and MIT license choice are in docs/ASSUMPTIONS.md. README describes architecture and the remaining production limitations. Initial authoring-host and publishing blockers were resolved by signed-in GitHub creation, narrowly scoped connector access and hosted Actions. No credential was created or printed.
 
-Portfolio pages and the combined website report are in [BuildZn PR #24](https://github.com/umair24171/dev_umair/pull/24). It is open and unmerged. Website validation status and its existing-test limitations are tracked in the PR description. No deployment or merge was performed.
+Portfolio pages and the combined website report are in [BuildZn PR #24](https://github.com/umair24171/dev_umair/pull/24). The user approved it and it was merged on 24 October 2026, including four original generated project illustrations. The image revision passed lint, types, 48 unit tests, 22 browser tests and the smoke suite. Website validation and its existing-test limitations are tracked in the PR description. Automatic Git deployments from main and the portfolio branch are disabled; no hosting deployment was performed.
 
 ## Complete project set
 
